@@ -5,7 +5,7 @@
 	Author URI: http://ahansson.com
 	Demo: http://accordy.ahansson.com
 	Version: 1.0
-	Description: Accordy Slider is a fully responsive slider that supports up to 10 slides with your custom content or images,
+	Description: Accordy Slider is a fully responsive slider that supports up to 10 slides with your custom content or images.
 	Class Name: PageLinesAccordySlider
 	Workswith: main, templates
 	Cloning: true
@@ -194,12 +194,6 @@ function section_persistent(){
 			'Image Four',
 			'Slide Four'
 		);
-		printf( '<li><h2><span>%s</span></h2><div><figure><img src="%s" alt="%s" /><figcaption class="ap-caption">%s</figcaption></figure></div></li>',
-			'Slide Five',
-			$this->base_url.'/img/5.png',
-			'Image Five',
-			'Slide Five'
-		);
 
 	}
 
@@ -211,7 +205,7 @@ function section_persistent(){
 		$array['accordion_slider_slides'] = array(
 			'type'    => 'count_select',
 			'count_start' => 2,
-			'count_num'  => 10,
+			'count_num'  => 30,
 			'default'  => '2',
 			'inputlabel'  => __( 'Number of Images to Configure', 'pagelines' ),
 			'title'   => __( 'Number of images', 'pagelines' ),
@@ -270,7 +264,7 @@ function section_persistent(){
 						'type'   => 'text'
 					),
 					'accordion_slider_content_'.$i  => array(
-						'inputlabel' => __( 'If you do not want an image, then add any HTML or php in this Custom Content field:', 'pagelines' ),
+						'inputlabel' => __( 'If you do not want an image, then add any HTML in this Custom Content field. If you have a link typed in the Slide Image Link field, then the HTML will not show.:', 'pagelines' ),
 						'type'   => 'textarea',
 
 					),
