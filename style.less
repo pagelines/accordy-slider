@@ -88,109 +88,6 @@
 .liteAccordion.stitch .slide:nth-child(10) > h2 span, .liteAccordion.stitch .slide:nth-child(10) > h2:after {
     background-color: #bb6098;
 }
-.liteAccordion.ie.stitch {
-    .slide-0 {
-        > {
-            h2 {
-                span {
-                    background-color: #c25252;
-                }
-            }
-        }
-    }
-    .slide-1 {
-        > {
-            h2 {
-                span {
-                    background-color: #ca9859;
-                }
-            }
-        }
-    }
-    .slide-2 {
-        > {
-            h2 {
-                span {
-                    background-color: #96ba5f;
-                }
-            }
-        }
-    }
-    .slide-3 {
-        > {
-            h2 {
-                span {
-                    background-color: #59abb7;
-                }
-            }
-        }
-    }
-    .slide-4 {
-        > {
-            h2 {
-                span {
-                    background-color: #bb6098;
-                }
-            }
-        }
-    }
-    .slide-5 {
-        > {
-            h2 {
-                span {
-                    background-color: #c25252;
-                }
-            }
-        }
-    }
-    .slide-6 {
-        > {
-            h2 {
-                span {
-                    background-color: #ca9859;
-                }
-            }
-        }
-    }
-    .slide-7 {
-        > {
-            h2 {
-                span {
-                    background-color: #96ba5f;
-                }
-            }
-        }
-    }
-    .slide-8 {
-        > {
-            h2 {
-                span {
-                    background-color: #59abb7;
-                }
-            }
-        }
-    }
-    .slide-9 {
-        > {
-            h2 {
-                span {
-                    background-color: #bb6098;
-                }
-            }
-        }
-    }
-    .slide {
-        > {
-            h2.selected:after {
-                display: none;
-            }
-        }
-    }
-
-}
-.liteAccordion.ie7.stitch .slide > h2 b, .liteAccordion.ie8.stitch .slide > h2 b {
-    top: 36%;
-}
 
 .liteAccordion, .liteAccordion * {
     padding: 0;
@@ -330,9 +227,6 @@
     }
 }
 
-.liteAccordion.ie9.stitch {
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
-}
 .liteAccordion.rounded {
     .slide {
         > {
@@ -391,22 +285,7 @@
         }
     }
 }
-.liteAccordion.ie7 .slide > h2 b, .liteAccordion.ie8 .slide > h2 b {
-    top: 44%;
-    left: 5%;
-}
-.liteAccordion.ie7 {
-    .slide {
-        > {
-            h2 {
-                filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
-                b {
-                    filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=1);
-                }
-            }
-        }
-    }
-}
+
 .liteAccordion.stitch.rounded {
     > {
         ol {
@@ -417,18 +296,7 @@
         }
     }
 }
-.liteAccordion.ie8 {
-    .slide {
-        > {
-            h2 {
-                -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=3)";
-                b {
-                    -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=1)";
-                }
-            }
-        }
-    }
-}
+
 .liteAccordion.stitch:before {
     content: '';
     width: 100%;
@@ -446,24 +314,7 @@
 .content-pad {
     .wrapper;
 }
-.liteAccordion.ie9 {
-    .slide {
-        > {
-            h2 {
-                -ms-transform: translateX(-100%) rotate(-90deg);
-                -ms-transform-origin: right top;
-                b {
-                    -ms-transform: rotate(90deg);
-                }
-            }
-        }
-    }
-}
-.liteAccordion.ie .slide > h2,.liteAccordion.ie .slide > h2 span,.liteAccordion.ie .slide > h2 b {
-    filter: none;
-    -ms-filter: none;
-    -ms-transform: none;
-}
+
 .liteAccordion.stitch {
     position: relative;
     padding: 5px 0 5px 5px;
@@ -524,3 +375,34 @@
         }
     }
 }
+//IE
+/* stitch */
+.liteAccordion.ie.stitch .slide > h2 { /*line-height: 265%*/ }
+.liteAccordion.ie.stitch .slide > h2 span { /*height: 89%; padding-right: 8%*/ }
+.liteAccordion.ie.stitch .slide > h2.selected:after { display: none }
+.liteAccordion.ie.stitch .slide-0 > h2 span { background-color: #c25252 }
+.liteAccordion.ie.stitch .slide-1 > h2 span { background-color: #ca9859 }
+.liteAccordion.ie.stitch .slide-2 > h2 span { background-color: #96ba5f }
+.liteAccordion.ie.stitch .slide-3 > h2 span { background-color: #59abb7 }
+.liteAccordion.ie.stitch .slide-4 > h2 span { background-color: #bb6098 }
+.liteAccordion.ie.stitch .slide-5 > h2 span { background-color: #c25252 }
+.liteAccordion.ie.stitch .slide-6 > h2 span { background-color: #ca9859 }
+.liteAccordion.ie.stitch .slide-7 > h2 span { background-color: #96ba5f }
+.liteAccordion.ie.stitch .slide-8 > h2 span { background-color: #59abb7 }
+.liteAccordion.ie.stitch .slide-9 > h2 span { background-color: #bb6098 }
+
+/* transforms */
+.liteAccordion.ie .slide > h2,
+.liteAccordion.ie .slide > h2 span,
+.liteAccordion.ie .slide > h2 b { filter: none; -ms-filter: none; -ms-transform: none }
+.liteAccordion.ie7 .slide > h2 { filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3) }
+.liteAccordion.ie7 .slide > h2 b { filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=1) }
+.liteAccordion.ie8 .slide > h2 { -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=3)" }
+.liteAccordion.ie8 .slide > h2 b { -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=1)" }
+.liteAccordion.ie9 .slide > h2 { -ms-transform: translateX(-100%) rotate(-90deg); -ms-transform-origin: right top }
+.liteAccordion.ie9 .slide > h2 b { -ms-transform: rotate(90deg) }
+
+/* misc */
+.liteAccordion.ie7 .slide > h2 b, .liteAccordion.ie8 .slide > h2 b { top: 44%; left: 5% }
+.liteAccordion.ie7.stitch .slide > h2 b, .liteAccordion.ie8.stitch .slide > h2 b { top: 36% }
+.liteAccordion.ie9.stitch { box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4) }

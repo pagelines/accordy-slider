@@ -1,11 +1,7 @@
 == Description ==
-<h3>What is Accordy Slider</h3>
+<h3>What is Accordy Slider?</h3>
 
-Accordy Slider is a jQuery slider that comes in 4 different themes ready for your site. 
-
-Accordy Slider comes with a number of options including custom links, custom text fields, custom content etc.
-
-Accordy Slider is beautiful responsive as well and supports up to 10 slides of your choice.
+Accordy Slider is a jQuery slider with different color scheme and has a number of options including custom links, custom text fields, custom content, and more. Accordy Slider is beautiful responsive and supports up to 10 slides of your choice.
 
 Want it? <strong>Buy it!! :)</strong>
 
@@ -14,6 +10,9 @@ Want it? <strong>Buy it!! :)</strong>
 Please do not leave a review as a support question, they are for reviews. I am not notified of these reviews, and I have no way to respond to you. Please <strong>do not email me for support</strong>, because you will not receive a reply. If you need assistance, click the link in the box below - this link leads you to the forums where you can get support. <strong>Thanks!</strong>
 
 == Changelog ==
+
+= 1.1 =
+* Fixed LESS for IE
 
 = 1.0 =
 * Initial Release

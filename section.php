@@ -4,7 +4,7 @@
 	Author: Aleksander Hansson
 	Author URI: http://ahansson.com
 	Demo: http://accordy.ahansson.com
-	Version: 1.0
+	Version: 1.1
 	Description: Accordy Slider is a fully responsive slider that supports up to 10 slides with your custom content or images.
 	Class Name: PageLinesAccordySlider
 	Workswith: main, templates
