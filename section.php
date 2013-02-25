@@ -4,7 +4,7 @@
 	Author: Aleksander Hansson
 	Author URI: http://ahansson.com
 	Demo: http://accordy.ahansson.com
-	Version: 1.1
+	Version: 1.2
 	Description: Accordy Slider is a fully responsive slider that supports up to 10 slides with your custom content or images.
 	Class Name: PageLinesAccordySlider
 	Workswith: main, templates
@@ -56,7 +56,7 @@ function section_persistent(){
 
 		wp_enqueue_script( 'jquery' );
 
-		wp_enqueue_script( 'pl-accordion-slider-easing', $this->base_url.'/js/jquery.easing.1.3.js' );
+		wp_enqueue_script( 'jquery-easing', $this->base_url.'/js/jquery.easing.1.3.js' );
 
 		wp_enqueue_script( 'pl-accordion-slider', $this->base_url.'/js/liteaccordion.jquery.js' );
 
@@ -66,6 +66,8 @@ function section_persistent(){
 	function section_head( $clone_id ) {
 
 		$prefix = ( $clone_id != '' ) ? 'Clone_'.$clone_id : '';
+
+		$speed = ploption('accordion_slider_speed', $this->oset) ? ploption('accordion_slider_speed', $this->oset)  : '800';
 
 ?>
 		<script type="text/javascript">
@@ -88,7 +90,10 @@ function section_persistent(){
 					?>
 					rounded : true,
 					responsive: true,
-					autoScaleImages : true,
+					slideSpeed : <?php echo $speed; ?>,
+					autoScaleImages : false,                // if a single image is placed within the slide, this will be automatically scaled to fit
+
+
 				}).find('figcaption:first').show();
 			})
 		</script>
@@ -228,6 +233,13 @@ function section_persistent(){
 			'shortexp'   => __( 'You can choose from 4 different themes.', 'pagelines' ),
 			'exp'    => __( "Select one of the themes from the list. If you want your own styling, please choose Basic and customize your the slider with custom CSS.", 'pagelines' ),
 
+		);
+
+		$array['accordion_slider_speed']  = array(
+			'inputlabel'  => __( 'Slide speed in ms', 'pagelines' ),
+			'type'   => 'text',
+			'title'   => __( 'Slide speed', 'pagelines' ),
+			'shortexp'   => __( 'Enter slide speed in ms (default is 800)', 'pagelines' )
 		);
 
 		global $post_ID;
