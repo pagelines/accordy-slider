@@ -11,6 +11,9 @@ Please do not leave a review as a support question, they are for reviews. I am n
 
 == Changelog ==
 
+= 1.3 =
+* Fixed IE bug
+
 = 1.2 =
 * Added slide speed option
 
