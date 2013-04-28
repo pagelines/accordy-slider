@@ -1,23 +1,10 @@
-/*************************************************!
-*
-*   project:    liteAccordion - a horizontal accordion plugin for jQuery
-*   author:     Nicola Hibbert
-*   url:        http://nicolahibbert.com/liteaccordion-v2/
-*   demo:       http://www.nicolahibbert.com/demo/liteAccordion/
-*
-*   Version:    2.2.0
-*   Copyright:  (c) 2010-2013 Nicola Hibbert
-*   Licence:    MIT
-*
-**************************************************/
-/****************************************** Core */
-#accordy-section, #accordy-slider {
-    padding-right: 20px;
+#accordy-section, #accordy-slider, .section-accordy-slider, .section-accordy-section {
     img {
-        width:100%;
+        width: 100%;
+        height: 100%;
     }
-    
-    .liteAccordion { text-align: left; font: 'Helvetica Neue', Verdana, Arial, sans-serif; -webkit-tap-highlight-color: transparent }
+
+    .liteAccordion { text-align: left; font: 'Helvetica Neue', Verdana, Arial, sans-serif; -webkit-tap-highlight-color: transparent; max-width: 100%!important; }
     .liteAccordion, .liteAccordion * { padding: 0; margin: 0 }
     .liteAccordion > ol { position: relative; overflow: hidden; height: 100%; margin: 0; padding: 0; list-style-type: none }
     .liteAccordion .slide > h2 {
@@ -74,10 +61,10 @@
 
     /****************************************** Dark */
     .liteAccordion.dark {
-        border: 9px solid #353535;
         border-bottom-width: 8px;
-        padding: 5px 5px 6px 0;
         background: #030303;
+        padding-top: 5px;
+        padding-bottom: 5px;
         -webkit-box-shadow: 0 -1px 0 #5b5b5b inset, 0 5px 15px rgba(0, 0, 0, 0.4);
         -moz-box-shadow: 0 -1px 0 #5b5b5b inset, 0 5px 15px rgba(0, 0, 0, 0.4);
         -ms-box-shadow: 0 -1px 0 #5b5b5b inset, 0 5px 15px rgba(0, 0, 0, 0.4);
@@ -108,12 +95,14 @@
     }
     .liteAccordion.dark .slide > div { background: #030303; margin-left: 5px }
 
+    .liteAccordion.dark > ol { margin-right: 5px }
+
     /***************************************** Light */
     .liteAccordion.light {
-        border: 9px solid white;
         border-bottom-width: 8px;
-        padding: 5px 5px 6px 0;
         background: #a0a0a0;
+        padding-top: 5px;
+        padding-bottom: 5px;
         -webkit-box-shadow: -1px -1px 0 #c0c0c0, 1px 1px 0 #c0c0c0, 0 5px 15px rgba(0, 0, 0, 0.4);
         -moz-box-shadow: -1px -1px 0 #c0c0c0, 1px 1px 0 #c0c0c0, 0 5px 15px rgba(0, 0, 0, 0.4);
         -ms-box-shadow: -1px -1px 0 #c0c0c0, 1px 1px 0 #c0c0c0, 0 5px 15px rgba(0, 0, 0, 0.4);
@@ -140,11 +129,13 @@
     .liteAccordion.light .slide > h2.selected span, .liteAccordion.light .slide h2.selected span:hover, .liteAccordion.light .slide > h2.selected b { background: #ffffff }
     .liteAccordion.light .slide > div { background: #a0a0a0; margin-left: 5px }
 
+    .liteAccordion.light > ol { margin-right: 5px }
+
     /**************************************** Stitch */
     .liteAccordion.stitch {
         position: relative;
-        padding: 5px 0 5px 5px;
-        border: 11px solid #353535;
+        padding-top: 5px;
+        padding-bottom: 5px;
         background: #353535;
         -webkit-box-shadow: 0 -1px 0 #5b5b5b inset, 0 5px 15px rgba(0, 0, 0, 0.4);
         -moz-box-shadow: 0 -1px 0 #5b5b5b inset, 0 5px 15px rgba(0, 0, 0, 0.4);
@@ -152,18 +143,13 @@
         box-shadow: 0 -1px 0 #5b5b5b inset, 0 5px 15px rgba(0, 0, 0, 0.4);
     }
     .liteAccordion.stitch:before {
-        content: '';
         width: 100%;
-        height: 100%;
-        position: absolute;
-        top: -9px;
-        left: -9px;
         background: #353535;
         border: 9px solid transparent;
-        -webkit-border-image: url('@{plExtendRoot}/accordy-section/img/bg_stitch.png') 9 repeat;
-        -moz-border-image: url('@{plExtendRoot}/accordy-section/img/bg_stitch.png') 9 repeat;
-        -o-border-image: url('@{plExtendRoot}/accordy-section/img/bg_stitch.png') 9 repeat;
-        border-image: url('@{plExtendRoot}/accordy-section/img/bg_stitch.png') 9 repeat;
+        -webkit-border-image: url('@{plExtendRoot}/accordy-slider/img/bg_stitch.png') 9 repeat;
+        -moz-border-image: url('@{plExtendRoot}/accordy-slider/img/bg_stitch.png') 9 repeat;
+        -o-border-image: url('@{plExtendRoot}/accordy-slider/img/bg_stitch.png') 9 repeat;
+        border-image: url('@{plExtendRoot}/accordy-slider/img/bg_stitch.png') 9 repeat;
     }
     .liteAccordion.stitch .slide > h2 { background: #353535 }
     .liteAccordion.stitch .slide > h2 span {
@@ -172,12 +158,12 @@
         color: white;
         text-shadow: -1px 1px 0 #5b5b5b;
         border: 9px solid transparent;
-        background-image: url('@{plExtendRoot}/accordy-section/img/bg_noise.png');
+        background-image: url('@{plExtendRoot}/accordy-slider/img/bg_noise.png');
         margin-top: 0;
-        -webkit-border-image: url('@{plExtendRoot}/accordy-section/img/bg_stitch.png') 9 repeat;
-        -moz-border-image: url('@{plExtendRoot}/accordy-section/img/bg_stitch.png') 9 repeat;
-        -o-border-image: url('@{plExtendRoot}/accordy-section/img/bg_stitch.png') 9 repeat;
-        border-image: url('@{plExtendRoot}/accordy-section/img/bg_stitch.png') 9 repeat;
+        -webkit-border-image: url('@{plExtendRoot}/accordy-slider/img/bg_stitch.png') 9 repeat;
+        -moz-border-image: url('@{plExtendRoot}/accordy-slider/img/bg_stitch.png') 9 repeat;
+        -o-border-image: url('@{plExtendRoot}/accordy-slider/img/bg_stitch.png') 9 repeat;
+        border-image: url('@{plExtendRoot}/accordy-slider/img/bg_stitch.png') 9 repeat;
     }
     .liteAccordion.stitch .slide > h2.selected:after {
         content: '';
@@ -196,11 +182,11 @@
         border: 9px solid transparent;
         border-top: 0;
         border-left: 0;
-        -webkit-border-image: url('@{plExtendRoot}/accordy-section/img/bg_stitch.png') 9 repeat;
-        -moz-border-image: url('@{plExtendRoot}/accordy-section/img/bg_stitch.png') 9 repeat;
-        -o-border-image: url('@{plExtendRoot}/accordy-section/img/bg_stitch.png') 9 repeat;
-        border-image: url('@{plExtendRoot}/accordy-section/img/bg_stitch.png') 9 repeat;
-        background-image: url('@{plExtendRoot}/accordy-section/img/bg_noise.png');
+        -webkit-border-image: url('@{plExtendRoot}/accordy-slider/img/bg_stitch.png') 9 repeat;
+        -moz-border-image: url('@{plExtendRoot}/accordy-slider/img/bg_stitch.png') 9 repeat;
+        -o-border-image: url('@{plExtendRoot}/accordy-slider/img/bg_stitch.png') 9 repeat;
+        border-image: url('@{plExtendRoot}/accordy-slider/img/bg_stitch.png') 9 repeat;
+        background-image: url('@{plExtendRoot}/accordy-slider/img/bg_noise.png');
     }
 
     .liteAccordion.stitch .slide:nth-child(1) > h2 span, .liteAccordion.stitch .slide:nth-child(1) > h2:after { background-color: #c25252 }
@@ -210,7 +196,7 @@
     .liteAccordion.stitch .slide:nth-child(5) > h2 span, .liteAccordion.stitch .slide:nth-child(5) > h2:after { background-color: #bb6098 }
     .liteAccordion.stitch .slide > h2 b { top: 19%; color: white; text-shadow: 1px 1px 0 #5b5b5b }
     .liteAccordion.stitch .slide > div { margin-right: 6px }
-    .liteAccordion.stitch.rounded > ol { -webkit-border-radius: 0; -moz-border-radius: 0; -ms-border-radius: 0; border-radius: 0 }
+    .liteAccordion.stitch.rounded > ol { -webkit-border-radius: 0; -moz-border-radius: 0; -ms-border-radius: 0; border-radius: 0; margin-left: 5px; margin-right: 5px;}
 
     /*************************************** Rounded */
     .liteAccordion.rounded, .rounded > ol { -webkit-border-radius: 6px; -moz-border-radius: 6px; -ms-border-radius: 6px; border-radius: 6px }
