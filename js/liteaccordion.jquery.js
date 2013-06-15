@@ -16,14 +16,14 @@
     var LiteAccordion = function(elem, options) {
 
         var defaults = {
-            containerWidth : 1100,                   // px, % or em
+            containerWidth : 1500,                   // px, % or em
             containerHeight : 320,                  // px, % or em
             headerWidth : 48,                       // px, % or em
 
             responsive : true,                     // overrides the above three settings, accordion adjusts to fill container
             autoScaleImages : true,                // if a single image is placed within the slide, this will be automatically scaled to fit
             minContainerWidth : 300,             // minimum width the accordion will resize to
-            maxContainerWidth : 1080,             // maximum width the accordion will resize to
+            maxContainerWidth : 1500,             // maximum width the accordion will resize to
 
             activateOn : 'click',                   // click or mouseover
             firstSlide : 1,                         // displays slide (n) on page load

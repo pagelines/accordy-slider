@@ -11,6 +11,10 @@ Please do not leave a review as a support question, they are for reviews. I am n
 
 == Changelog ==
 
+= 1.5 =
+* Fixed a responsive bug
+* Added section to the header area
+
 = 1.4 =
 * Fixed responsive bugs
 * Better styling
