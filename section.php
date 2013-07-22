@@ -9,6 +9,7 @@
 	Class Name: AccordySlider
 	Workswith: main, templates, header
 	Cloning: true
+	V3: true
 */
 
 class AccordySlider extends PageLinesSection {
@@ -27,7 +28,7 @@ class AccordySlider extends PageLinesSection {
 
 	function section_head() {
 
-		$clone_id = $this->oset['clone_id'];
+		$clone_id = $this->get_the_id();
 
 		$prefix = ( $clone_id != '' ) ? 'Clone_'.$clone_id : '';
 
@@ -75,7 +76,7 @@ class AccordySlider extends PageLinesSection {
 
 	function section_template() {
 
-		$clone_id = $this->oset['clone_id'];
+		$clone_id = $this->get_the_id();
 
 		$prefix = ( $clone_id != '' ) ? 'Clone_'.$clone_id : '';
 
@@ -176,39 +177,46 @@ class AccordySlider extends PageLinesSection {
 
 		$array = array();
 
-		$array['accordion_slider_slides'] = array(
-			'type'    => 'count_select',
-			'count_start' => 2,
-			'count_num'  => 30,
-			'default'  => '2',
-			'inputlabel'  => __( 'Number of Images to Configure', 'AccordySlider' ),
-			'title'   => __( 'Number of images', 'AccordySlider' ),
-			'shortexp'   => __( 'Enter the number of Accordion slides. <strong>Minimum is 2</strong>', 'AccordySlider' ),
-			'exp'    => __( "This number will be used to generate slides and option setup. For responsive layouts, please select a low number and work your way up while testing. 10 is too many for most responsive sites.", 'AccordySlider' ),
-
-		);
-
-		$array['accordion_slider_theme'] = array(
-			'inputlabel' => __( 'Slide Theme', 'AccordySlider' ),
-			'type'   => 'select',
-			'default'  => 'stitch',
+		$array['accordion_slider_slide_'] = array(
+			'type'    => 'multi_option',
+			'title' => __( 'Settings', 'AccordySlider' ),
 			'selectvalues' => array(
-				'stitch' => array( 'name'=> 'Stiches' ),
-				'light' => array( 'name'=> 'Light' ),
-				'dark' => array( 'name'=> 'Dark' ),
-				'basic'  => array( 'name'=> 'Basic' )
+
+				'accordion_slider_slides' => array(
+					'type'    => 'count_select',
+					'count_start' => 2,
+					'count_num'  => 30,
+					'default'  => '2',
+					'inputlabel'  => __( 'Number of Images to Configure', 'AccordySlider' ),
+					'title'   => __( 'Number of images', 'AccordySlider' ),
+					'shortexp'   => __( 'Enter the number of Accordion slides. <strong>Minimum is 2</strong>', 'AccordySlider' ),
+					'exp'    => __( "This number will be used to generate slides and option setup. For responsive layouts, please select a low number and work your way up while testing. 10 is too many for most responsive sites.", 'AccordySlider' ),
+
+				),
+
+				'accordion_slider_theme' => array(
+					'inputlabel' => __( 'Slide Theme', 'AccordySlider' ),
+					'type'   => 'select',
+					'default'  => 'stitch',
+					'selectvalues' => array(
+						'stitch' => array( 'name'=> 'Stiches' ),
+						'light' => array( 'name'=> 'Light' ),
+						'dark' => array( 'name'=> 'Dark' ),
+						'basic'  => array( 'name'=> 'Basic' )
+					),
+					'title'   => __( 'Choose theme for this slide', 'AccordySlider' ),
+					'shortexp'   => __( 'You can choose from 4 different themes.', 'AccordySlider' ),
+					'exp'    => __( "Select one of the themes from the list. If you want your own styling, please choose Basic and customize your the slider with custom CSS.", 'AccordySlider' ),
+
+				),
+
+				'accordion_slider_speed' => array(
+					'inputlabel'  => __( 'Slide speed in ms', 'AccordySlider' ),
+					'type'   => 'text',
+					'title'   => __( 'Slide speed', 'AccordySlider' ),
+					'shortexp'   => __( 'Enter slide speed in ms (default is 800)', 'AccordySlider' )
+				),
 			),
-			'title'   => __( 'Choose theme for this slide', 'AccordySlider' ),
-			'shortexp'   => __( 'You can choose from 4 different themes.', 'AccordySlider' ),
-			'exp'    => __( "Select one of the themes from the list. If you want your own styling, please choose Basic and customize your the slider with custom CSS.", 'AccordySlider' ),
-
-		);
-
-		$array['accordion_slider_speed']  = array(
-			'inputlabel'  => __( 'Slide speed in ms', 'AccordySlider' ),
-			'type'   => 'text',
-			'title'   => __( 'Slide speed', 'AccordySlider' ),
-			'shortexp'   => __( 'Enter slide speed in ms (default is 800)', 'AccordySlider' )
 		);
 
 		global $post_ID;
