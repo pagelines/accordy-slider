@@ -3,8 +3,6 @@
 	Section: Accordy Slider
 	Author: Aleksander Hansson
 	Author URI: http://ahansson.com
-	Demo: http://accordy.ahansson.com
-	Version: 1.5
 	Description: Accordy Slider is a fully responsive slider that supports up to 10 slides with your custom content or images.
 	Class Name: AccordySlider
 	Workswith: main, templates, header
@@ -32,11 +30,11 @@ class AccordySlider extends PageLinesSection {
 
 		$prefix = ( $clone_id != '' ) ? 'Clone_'.$clone_id : '';
 
-		$speed = ploption('accordion_slider_speed', $this->oset) ? ploption('accordion_slider_speed', $this->oset)  : '800';
+		$speed = $this->opt('accordion_slider_speed', $this->oset) ? $this->opt('accordion_slider_speed', $this->oset)  : '800';
 
 		?>
 			<script type="text/javascript">
-				jQuery(document).ready(function($){
+				jQuery(function($){
 					$('#accordionSlider<?php echo $prefix ?>').liteAccordion({
 						onTriggerSlide : function() {
 							this.find('figcaption').fadeOut();
@@ -47,8 +45,8 @@ class AccordySlider extends PageLinesSection {
 						autoPlay : true,
 						pauseOnHover : true,
 						<?php
-							if ( ploption( 'accordion_slider_theme', $this->oset ) ) {
-								printf( 'theme:"%s",', ploption( 'accordion_slider_theme', $this->oset ) );
+							if ( $this->opt( 'accordion_slider_theme', $this->oset ) ) {
+								printf( 'theme:"%s",', $this->opt( 'accordion_slider_theme', $this->oset ) );
 							} else {
 								printf( 'theme:"%s",', 'stitch' );
 							}
@@ -86,33 +84,33 @@ class AccordySlider extends PageLinesSection {
 					<ol>
 						<?php
 
-							$slides = ( ploption( 'accordion_slider_slides', $this->oset ) ) ? ploption( 'accordion_slider_slides', $this->oset ) : $this->default_limit;
+							$slides = ( $this->opt( 'accordion_slider_slides', $this->oset ) ) ? $this->opt( 'accordion_slider_slides', $this->oset ) : $this->default_limit;
 
 							$output = '';
 							for ( $i = 1; $i <= $slides; $i++ ) {
 
-								if ( ploption( 'accordion_slider_image_'.$i, $this->oset ) || ploption( 'accordion_slider_content_'.$i, $this->oset ) ) {
+								if ( $this->opt( 'accordion_slider_image_'.$i, $this->oset ) || $this->opt( 'accordion_slider_content_'.$i, $this->oset ) ) {
 
-									$the_text = ploption( 'accordion_slider_text_'.$i, $this->tset );
+									$the_text = $this->opt( 'accordion_slider_text_'.$i, $this->tset );
 
-									$the_name = ploption( 'accordion_slider_name_'.$i, $this->tset );
+									$the_name = $this->opt( 'accordion_slider_name_'.$i, $this->tset );
 
-									$img_alt = ploption( 'accordion_slider_alt_'.$i, $this->tset );
+									$img_alt = $this->opt( 'accordion_slider_alt_'.$i, $this->tset );
 
 									$text = ( $the_text ) ? sprintf( '<figcaption class="ap-caption">%s</figcaption>', $the_text ) : '';
 
 									$name = ( $the_name ) ? sprintf( '<h2><span>%s</span></h2>', $the_name ) : '<h2><span><br/></span></h2>';
 
-									$custom_content = ploption( 'accordion_slider_content_'.$i, $this->oset );
+									$custom_content = $this->opt( 'accordion_slider_content_'.$i, $this->oset );
 
-									if ( ploption( 'accordion_slider_image_'.$i, $this->oset ) ) {
-										$img = sprintf( '<figure><img src="%s" alt="%s" />%s</figure>', ploption( 'accordion_slider_image_'.$i, $this->oset ), $img_alt, $text );
+									if ( $this->opt( 'accordion_slider_image_'.$i, $this->oset ) ) {
+										$img = sprintf( '<figure><img src="%s" alt="%s" />%s</figure>', $this->opt( 'accordion_slider_image_'.$i, $this->oset ), $img_alt, $text );
 									} else {
 										$img = '';
 									}
 
-									if ( ploption( 'accordion_slider_link_'.$i, $this->tset ) ) {
-										$link = sprintf( '<figure><a href="%s"><img src="%s" alt="%s" /></a>%s</figure>', ploption( 'accordion_slider_link_'.$i, $this->tset ), ploption( 'accordion_slider_image_'.$i, $this->tset ), $img_alt, $text );
+									if ( $this->opt( 'accordion_slider_link_'.$i, $this->tset ) ) {
+										$link = sprintf( '<figure><a href="%s"><img src="%s" alt="%s" /></a>%s</figure>', $this->opt( 'accordion_slider_link_'.$i, $this->tset ), $this->opt( 'accordion_slider_image_'.$i, $this->tset ), $img_alt, $text );
 									} else {
 										$link = '';
 									}
@@ -223,7 +221,7 @@ class AccordySlider extends PageLinesSection {
 
 		$oset = array( 'post_id' => $post_ID, 'clone_id' => $settings['clone_id'], 'type' => $settings['type'] );
 
-		$slides = ( ploption( 'accordion_slider_slides', $oset ) ) ? ploption( 'accordion_slider_slides', $oset ) : $this->default_limit;
+		$slides = ( $this->opt( 'accordion_slider_slides', $this->oset ) ) ? $this->opt( 'accordion_slider_slides', $oset ) : $this->default_limit;
 
 		for ( $i = 1; $i <= $slides; $i++ ) {
 
