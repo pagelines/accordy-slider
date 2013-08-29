@@ -8,6 +8,7 @@
 	Workswith: main, templates, header
 	Cloning: true
 	V3: true
+	Filter: slider
 */
 
 class AccordySlider extends PageLinesSection {
