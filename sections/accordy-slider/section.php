@@ -111,7 +111,7 @@ class AccordySlider extends PageLinesSection {
 									}
 
 									if ( $this->opt( 'accordion_slider_link_'.$i, $this->tset ) ) {
-										$link = sprintf( '<figure><a href="%s"><img src="%s" alt="%s" /></a>%s</figure>', $this->opt( 'accordion_slider_link_'.$i, $this->tset ), $this->opt( 'accordion_slider_image_'.$i, $this->tset ), $img_alt, $text );
+										$link = sprintf( '<a href="%s"><figure><img src="%s" alt="%s" />%s</figure></a>', $this->opt( 'accordion_slider_link_'.$i, $this->tset ), $this->opt( 'accordion_slider_image_'.$i, $this->tset ), $img_alt, $text );
 									} else {
 										$link = '';
 									}
