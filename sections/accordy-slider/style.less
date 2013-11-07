@@ -228,3 +228,22 @@
     .liteAccordion.ie9.stitch { box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4); }
     .liteAccordion.ie9.stitch .slide > h2 b { top: 0; left: 10% }
 }
+
+.form-accordy-slider-local,
+.form-accordy-slider-global {
+    div[class*='opt-accordion_slider']{
+        display:inline-block;
+        vertical-align: top;
+        padding:10px;
+        .box-sizing(border-box);
+
+        @media(min-width:1500px) { width:25%;    }
+        @media(max-width:1499px) { width:33.333%;}
+        @media(max-width:1200px) { width:50%;}
+        @media(max-width:767px) {
+            width:100%;
+            display: block;
+            padding:0 0 20px 0;
+        }
+    }
+}

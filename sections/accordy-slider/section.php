@@ -5,7 +5,6 @@
 	Author URI: http://ahansson.com
 	Description: Accordy Slider is a fully responsive slider that supports up to 10 slides with your custom content or images.
 	Class Name: AccordySlider
-	Workswith: main, templates, header
 	Cloning: true
 	V3: true
 	Filter: slider
@@ -31,12 +30,12 @@ class AccordySlider extends PageLinesSection {
 
 		$prefix = ( $clone_id != '' ) ? 'Clone_'.$clone_id : '';
 
-		$speed = $this->opt('accordion_slider_speed', $this->oset) ? $this->opt('accordion_slider_speed', $this->oset)  : '800';
+		$speed = $this->opt('accordion_slider_speed' ) ? $this->opt('accordion_slider_speed' )  : '800';
 
 		?>
 			<script type="text/javascript">
-				jQuery(function($){
-					$('#accordionSlider<?php echo $prefix ?>').liteAccordion({
+				jQuery(document).ready(function(){
+					jQuery('#accordionSlider<?php echo $prefix ?>').liteAccordion({
 						onTriggerSlide : function() {
 							this.find('figcaption').fadeOut();
 						},
@@ -46,8 +45,8 @@ class AccordySlider extends PageLinesSection {
 						autoPlay : true,
 						pauseOnHover : true,
 						<?php
-							if ( $this->opt( 'accordion_slider_theme', $this->oset ) ) {
-								printf( 'theme:"%s",', $this->opt( 'accordion_slider_theme', $this->oset ) );
+							if ( $this->opt( 'accordion_slider_theme'  ) ) {
+								printf( 'theme:"%s",', $this->opt( 'accordion_slider_theme'  ) );
 							} else {
 								printf( 'theme:"%s",', 'stitch' );
 							}
@@ -59,7 +58,7 @@ class AccordySlider extends PageLinesSection {
 
 
 					}).find('figcaption:first').show();
-				})
+				});
 			</script>
 
 			<!--[if lt IE 9]>
@@ -79,53 +78,75 @@ class AccordySlider extends PageLinesSection {
 
 		$prefix = ( $clone_id != '' ) ? 'Clone_'.$clone_id : '';
 
+		// The boxes
+		$accordion_slider_array = $this->opt('accordion_slider_array');
+
+		$format_upgrade_mapping = array(
+			'name'	=> 'accordion_slider_name_%s',
+			'image'	=> 'accordion_slider_image_%s',
+			'alt'	=> 'accordion_slider_alt_%s',
+			'link'	=> 'accordion_slider_link_%s',
+			'text'	=> 'accordion_slider_text_',
+			'content'	=> 'accordion_slider_content_%s'
+		);
+
+		$accordion_slider_array = $this->upgrade_to_array_format( 'accordion_slider_array', $accordion_slider_array, $format_upgrade_mapping, $this->opt('accordion_slider_slides'));
+
+		// must come after upgrade
+		if( !$accordion_slider_array || $accordion_slider_array == 'false' || !is_array($accordion_slider_array) ){
+			$accordion_slider_array = array( array(), array(), array(), array() );
+		}
+
 		?>
 			<div class="container">
 				<div id="accordionSlider<?php echo $prefix ?>">
 					<ol>
 						<?php
 
-							$slides = ( $this->opt( 'accordion_slider_slides', $this->oset ) ) ? $this->opt( 'accordion_slider_slides', $this->oset ) : $this->default_limit;
+							if( is_array($accordion_slider_array) ){
 
-							$output = '';
-							for ( $i = 1; $i <= $slides; $i++ ) {
+								$slides = count( $accordion_slider_array );
 
-								if ( $this->opt( 'accordion_slider_image_'.$i, $this->oset ) || $this->opt( 'accordion_slider_content_'.$i, $this->oset ) ) {
+								foreach( $accordion_slider_array as $slide ){
 
-									$the_text = $this->opt( 'accordion_slider_text_'.$i, $this->tset );
+									if ( pl_array_get( 'image', $slide) || pl_array_get( 'content', $slide) ) {
 
-									$the_name = $this->opt( 'accordion_slider_name_'.$i, $this->tset );
+										$the_text = pl_array_get( 'text', $slide);
 
-									$img_alt = $this->opt( 'accordion_slider_alt_'.$i, $this->tset );
+										$the_name = pl_array_get( 'name', $slide);
 
-									$text = ( $the_text ) ? sprintf( '<figcaption class="ap-caption">%s</figcaption>', $the_text ) : '';
+										$alt = pl_array_get( 'alt', $slide);
 
-									$name = ( $the_name ) ? sprintf( '<h2><span>%s</span></h2>', $the_name ) : '<h2><span><br/></span></h2>';
+										$text = ( $the_text ) ? sprintf( '<figcaption class="ap-caption">%s</figcaption>', $the_text ) : '';
 
-									$custom_content = $this->opt( 'accordion_slider_content_'.$i, $this->oset );
+										$name = ( $the_name ) ? sprintf( '<h2><span>%s</span></h2>', $the_name ) : '<h2><span><br/></span></h2>';
 
-									if ( $this->opt( 'accordion_slider_image_'.$i, $this->oset ) ) {
-										$img = sprintf( '<figure><img src="%s" alt="%s" />%s</figure>', $this->opt( 'accordion_slider_image_'.$i, $this->oset ), $img_alt, $text );
-									} else {
-										$img = '';
+										$custom_content = pl_array_get( 'content', $slide);
+
+										if ( $this->opt( 'accordion_slider_image_'.$i  ) ) {
+											$img = sprintf( '<figure><img src="%s" alt="%s" />%s</figure>', pl_array_get( 'image', $slide), $img_alt, $text );
+										} else {
+											$img = '';
+										}
+
+										if ( pl_array_get( 'link', $slide ) ) {
+											$link = sprintf( '<a href="%s"><figure><img src="%s" alt="%s" />%s</figure></a>', pl_array_get( 'link', $slide), pl_array_get( 'image', $slide, ''), $img_alt, $text );
+										} else {
+											$link = '';
+										}
+
+										if ( $link ) {
+											$content = $link;
+										} elseif ( $img ) {
+											$content = $img;
+										} elseif ( $custom_content ) {
+											$content = do_shortcode( $custom_content );
+										}
+
+										$output .= sprintf( '<li>%s<div>%s</div></li>', $name, $content );
 									}
-
-									if ( $this->opt( 'accordion_slider_link_'.$i, $this->tset ) ) {
-										$link = sprintf( '<a href="%s"><figure><img src="%s" alt="%s" />%s</figure></a>', $this->opt( 'accordion_slider_link_'.$i, $this->tset ), $this->opt( 'accordion_slider_image_'.$i, $this->tset ), $img_alt, $text );
-									} else {
-										$link = '';
-									}
-
-									if ( $link ) {
-										$content = $link;
-									} elseif ( $img ) {
-										$content = $img;
-									} elseif ( $custom_content ) {
-										$content = $custom_content;
-									}
-
-									$output .= sprintf( '<li>%s<div>%s</div></li>', $name, $content );
 								}
+
 							}
 
 							if ( $output == '' ) {
@@ -171,108 +192,118 @@ class AccordySlider extends PageLinesSection {
 
 	}
 
-	function section_optionator( $settings ) {
-		$settings = wp_parse_args( $settings, $this->optionator_default );
 
-		$array = array();
+		function section_opts() {
 
-		$array['accordion_slider_slide_'] = array(
-			'type'    => 'multi_option',
-			'title' => __( 'Settings', 'AccordySlider' ),
-			'selectvalues' => array(
+		$options = array();
 
-				'accordion_slider_slides' => array(
-					'type'    => 'count_select',
-					'count_start' => 2,
-					'count_num'  => 30,
-					'default'  => '2',
-					'inputlabel'  => __( 'Number of Images to Configure', 'AccordySlider' ),
-					'title'   => __( 'Number of images', 'AccordySlider' ),
-					'shortexp'   => __( 'Enter the number of Accordion slides. <strong>Minimum is 2</strong>', 'AccordySlider' ),
-					'exp'    => __( "This number will be used to generate slides and option setup. For responsive layouts, please select a low number and work your way up while testing. 10 is too many for most responsive sites.", 'AccordySlider' ),
+		$how_to_use = __( '
+		<strong>Read the instructions below before asking for additional help:</strong>
+		</br></br>
+		<strong>1.</strong> In Drag&Drop, drag the Accordy Slider section to a template of your choice.
+		</br></br>
+		<strong>2.</strong> Edit settings.
+		</br></br>
+		<strong>3.</strong> Setup each slide.
+		</br></br>
+		<strong>4.</strong> Hit "Publish" to see changes.
+		</br></br>
+		<div class="row zmb">
+				<div class="span6 tac zmb">
+					<a class="btn btn-info" href="http://forum.accordy-slider.com/71-products-by-aleksander-hansson/" target="_blank" style="padding:4px 0 4px;width:100%"><i class="icon-ambulance"></i>          Forum</a>
+				</div>
+				<div class="span6 tac zmb">
+					<a class="btn btn-info" href="http://betterdms.com" target="_blank" style="padding:4px 0 4px;width:100%"><i class="icon-align-justify"></i>          Better DMS</a>
+				</div>
+			</div>
+			<div class="row zmb" style="margin-top:4px;">
+				<div class="span12 tac zmb">
+					<a class="btn btn-success" href="http://shop.ahansson.com" target="_blank" style="padding:4px 0 4px;width:100%"><i class="icon-shopping-cart" ></i>          My Shop</a>
+				</div>
+			</div>
+		', 'accordy-slider' );
 
-				),
+		$options[] = array(
+			'key' => 'accordion_slider_help',
+			'type'     => 'template',
+			'template'      => do_shortcode( $how_to_use ),
+			'title' =>__( 'How to use:', 'accordy-slider' ) ,
+		);
 
-				'accordion_slider_theme' => array(
-					'inputlabel' => __( 'Slide Theme', 'AccordySlider' ),
+		$options[] = array(
+
+			'key'	=>	'accordion_slider_slide_',
+			'type'  => 	'multi',
+			'title' => __( 'Settings', 'accordy-slider' ),
+			'opts' => array(
+
+				array(
+					'key'	=>	'accordion_slider_theme',
+					'label' => __( 'Slide Theme', 'accordy-slider' ),
 					'type'   => 'select',
 					'default'  => 'stitch',
-					'selectvalues' => array(
+					'opts' => array(
 						'stitch' => array( 'name'=> 'Stiches' ),
 						'light' => array( 'name'=> 'Light' ),
 						'dark' => array( 'name'=> 'Dark' ),
 						'basic'  => array( 'name'=> 'Basic' )
 					),
-					'title'   => __( 'Choose theme for this slide', 'AccordySlider' ),
-					'shortexp'   => __( 'You can choose from 4 different themes.', 'AccordySlider' ),
-					'exp'    => __( "Select one of the themes from the list. If you want your own styling, please choose Basic and customize your the slider with custom CSS.", 'AccordySlider' ),
+					'title'   => __( 'Choose theme for this slide', 'accordy-slider' ),
+					'help'   => __( 'You can choose from 4 different themes.', 'accordy-slider' ),
 
 				),
-
-				'accordion_slider_speed' => array(
-					'inputlabel'  => __( 'Slide speed in ms', 'AccordySlider' ),
-					'type'   => 'text',
-					'title'   => __( 'Slide speed', 'AccordySlider' ),
-					'shortexp'   => __( 'Enter slide speed in ms (default is 800)', 'AccordySlider' )
+				array(
+					'key'	=>	'accordion_slider_speed',
+					'label' => __( 'Slide speed in ms', 'accordy-slider' ),
+					'type'  => 'text',
+					'default' => '800',
+					'title' => __( 'Slide speed', 'accordy-slider' ),
+					'help'  => __( 'Enter slide speed in ms (default is 800)', 'accordy-slider' )
 				),
 			),
 		);
 
-		global $post_ID;
-
-		$oset = array( 'post_id' => $post_ID, 'clone_id' => $settings['clone_id'], 'type' => $settings['type'] );
-
-		$slides = ( $this->opt( 'accordion_slider_slides', $this->oset ) ) ? $this->opt( 'accordion_slider_slides', $oset ) : $this->default_limit;
-
-		for ( $i = 1; $i <= $slides; $i++ ) {
-
-
-			$array['accordion_slider_slide_'.$i] = array(
-				'type'    => 'multi_option',
-				'selectvalues' => array(
-
-					'accordion_slider_name_'.$i  => array(
-						'inputlabel'  => __( 'Slide Name', 'AccordySlider' ),
-						'type'   => 'text'
-					),
-					'accordion_slider_image_'.$i  => array(
-						'inputlabel'  => __( 'Slide Image', 'AccordySlider' ),
-						'type'   => 'image_upload'
-					),
-					'accordion_slider_alt_'.$i  => array(
-						'inputlabel' => __( 'Image ALT tag', 'AccordySlider' ),
-						'type'   => 'text'
-					),
-					'accordion_slider_link_'.$i  => array(
-						'inputlabel' => __( 'Slide Image Link', 'AccordySlider' ),
-						'type'   => 'text'
-					),
-					'accordion_slider_text_'.$i  => array(
-						'inputlabel' => __( 'Slide Image Text', 'AccordySlider' ),
-						'type'   => 'text'
-					),
-					'accordion_slider_content_'.$i  => array(
-						'inputlabel' => __( 'If you do not want an image, then add any HTML in this Custom Content field. If you have a link typed in the Slide Image Link field, then the HTML will not show.:', 'AccordySlider' ),
-						'type'   => 'textarea',
-
-					),
+		$options[] = array(
+			'key'		=> 'accordion_slider_array',
+	    	'type'		=> 'accordion',
+			'title'		=> __('Slides Setup', 'accordy-slider'),
+			'post_type'	=> __('Slide', 'accordy-slider'),
+			'opts'		=> array(
+				array(
+					'key'	=> 'name',
+					'label' => __( 'Slide Name', 'accordy-slider' ),
+					'type'  => 'text'
 				),
-				'title'   => __( 'Accordion Slide ', 'AccordySlider' ) . $i,
-				'shortexp'   => __( 'Setup options for slide number ', 'AccordySlider' ) . $i,
-				'exp'   => __( 'For best results all images in the slider should have the same dimensions.', 'AccordySlider' )
-			);
+				array(
+					'key'	=>'image',
+					'label' => __( 'Slide Image', 'accordy-slider' ),
+					'type'  => 'image_upload'
+				),
+				array(
+					'key'	=>'alt',
+					'label' => __( 'Image ALT tag', 'accordy-slider' ),
+					'type'  => 'text'
+				),
+				array(
+					'key'	=>'link',
+					'label' => __( 'Slide Image Link', 'accordy-slider' ),
+					'type'  => 'text'
+				),
+				array(
+					'key'	=>'text',
+					'label' => __( 'Slide Image Text', 'accordy-slider' ),
+					'type'  => 'text'
+				),
+				array(
+					'key'	=>'content',
+					'label' => __( 'If you do not want an image, then add any HTML in this Custom Content field. If you have a link typed in the Slide Image Link field, then the HTML will not show.:', 'accordy-slider' ),
+					'type'  => 'textarea',
+				),
 
-		}
+			)
+	    );
 
-		$metatab_settings = array(
-			'id'   => 'accordion_slider_options',
-			'name'   => __( 'Accordy Slider', 'AccordySlider' ),
-			'icon'   => $this->icon,
-			'clone_id' => $settings['clone_id'],
-			'active' => $settings['active']
-		);
-
-		register_metatab( $metatab_settings, $array );
+		return $options;
 
 	}
 
